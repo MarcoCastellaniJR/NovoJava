@@ -1,0 +1,74 @@
+
+Com métodos Lambda 
+            palavras.sort((s1, s2) -> Integer.compare(s1.length(), s2.length()));
+ podemos usar essa linha para ordenar as strings, mas podemos ir além 
+ 
+------      palavras.sort(Comparator.comparing(s -> s.length()));
+    Nesse caso usamos o Comparator. que tem mais métodos como comparing
+    Nessa linha podemos reparar que ela está diretamente falando
+    "Comparator, compare em s e ordene pelo lenght, que é o contador
+    
+----- Podemos reduzir ainda mais esse código fazendo uma referencia ao método
+            palavras.sort(Comparator.comparing(String::length));
+   
+----- Caso você faça o import , a linha pode ficar ainda mais curta 
+            import static java.util.Comparator.*;
+            palavras.sort(comparing(String::length));
+
+------ Vamos comparar o código em lambda e a referencia ao método
+            Function<String, Integer> funcao1 = s -> s.length();
+            Function<String, Integer> funcao2 = String::length;
+            
+        // Podemos ver que ambos usam uma String, no lambda está referenciando a String como s
+        e ambas invocam o método lenght e fazem uma validação retornando um integer,
+        
+        
+******************************************************************************************
+
+------ Vamos aprender a usar a interface Stream, 
+
+      Primeiro vamos usar o filter que retorna um verdadeiro ou falso, 
+      
+      Stream<Curso> streamDeCurso = cursos.stream().filter(c -> c.getAlunos() > 100);
+      
+      Nesse caso ele está procurando por getAlunos , vendo qual curso tem mais de 100 alunos cadastrados
+      
+      Repare que o filtro devolve também um Stream! É um exemplo do que chamam de fluent interface. Vamos fazer um forEach e ver o resultado dos cursos:
+                    Stream<Curso> streamDeCurso = cursos.stream().filter(c -> c.getAlunos() > 100);
+                    cursos.forEach(c -> System.out.println(c.getNome()));
+      
+      A saida será :
+              Python
+              C
+              Java 8
+              Java Script
+
+      ainda deu errado pois ele está imprimindo todos os cursos, para isso precisamos 
+      fazer um foreach na stream, ou até simplificar e tirar a variável temporária e fazer assim
+                    cursos.stream().filter(c -> c.getAlunos() > 100).forEach(c -> System.out.println(c.getNome()));
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

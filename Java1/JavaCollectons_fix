@@ -1,0 +1,121 @@
+------------------ REFORÇANDO ARRAYS 
+    
+    -- Nomeando as Strings
+    String aula1 = "Teste aula 01";
+		String aula2 = "Teste aula 02";
+		String aula3 = "Teste aula 03";
+		
+    -- Criando a Array List de Strings
+		ArrayList<String> aulas = new ArrayList<>();
+		
+    -- Incluindo as String dentro do Array List de String
+		aulas.add(aula1);
+		aulas.add(aula2);
+		aulas.add(aula3);
+		System.out.println(aulas);
+		
+    -- Removendo a String pelo INDEX
+		aulas.remove(0);
+		System.out.println(aulas);
+		
+		-- for each especia para escolher como mostrar cada aula de tdas as aulas
+		for (String aula : aulas) {
+			System.out.println("Aula: " + aula);
+		}
+		
+    -- Criando a String e selecionando por index
+		String selecionarAula = aulas.get(1);
+		System.out.println(selecionarAula);
+		
+		-- PARA PERCORRER A LISTA E IMPRIMIR COM A FORMATAÇÃO DESEJADA
+		for (int i = 0; i < aulas.size(); i++) {
+		    System.out.println("aula : " + aulas.get(i));
+		}
+		
+		
+		-- FORMA MAIS NOVA PARA PERCORRER O JAVA USANDO LAMBDAS
+		aulas.forEach(aula -> {
+		    System.out.println("Percorrendo:");
+		    System.out.println("Aula " + aula);
+		});
+    
+    
+    ------------- Usando ArrayList com OBJ
+    
+        Aula a1 = new Aula("Revistando as ArrayLists", 21);
+        Aula a2 = new Aula("Listas de objetos", 20);
+        Aula a3 = new Aula("Relacionamento de listas e objetos", 15);
+
+        ArrayList<Aula> aulas = new ArrayList<>();
+        aulas.add(a1);
+        aulas.add(a2);
+        aulas.add(a3);
+
+        System.out.println(aulas);
+        // ESSE SYSOUT IRÁ IMPRIMIR : 
+        [Aula@c3bfe4, Aula@d24512, Aula@c13eaa1]
+        
+        Para fazer o sysout de uma ArrayList de OBJ você precisa REESCREVER o método ToString() do obj
+        
+        o método toString é uma String, e temos que configurála para retornar o que queremos para a idetificação, 
+        por exemplo em um OBJ de contas, pode se retornar uma string com o código completo da conta,
+        Em um DataBase de Itens, apenas o nome do item, ou o nome e o ID
+        o metodo toString é para ser sobrescrito para melhor funcionar na aplicação
+        
+ --------------- MÉTODO COMPARETO
+        
+        String s1 = "paulo";
+        String s2 = "silveira";
+        int resultado = s1.compareTo(s2);
+
+        System.out.println(resultado);
+        
+        Nesse caso a CompareTo não tem muito o qe imprimir, vai dar um erro por ela não saber comparar um OBJ
+        Quando se usa o compare To em String, nessa comparação ele 
+        -- Retorna -1 se s1 é menor que s2
+        -- Retorna  1 se s1 é maior que s2
+        -- Retorna  0 se ambos são iguais, 
+        Quando se compara String o método compara por ordem lexicográfica ( Alfabética ) 
+        
+        O que fazer quando se tenta comparar Objs? o método precisa ser sobreescrito
+        
+        
+         @Override
+          public int compareTo(Aula outraAula) {
+                return this.titulo.compareTo(outraAula.titulo);
+          }
+          -- Nesse caso está se pedindo um construtor onde se pede uma outra aula para comparar, como o método normalmente faz mesmo
+          -- Depois você pode usar o próprio compareTo para comparar o titulo com o titulo que se é comparada
+          -- Você está sobrescrevend o metodo compareTo apenas para decidir qual dos atributos do obj você deseja comparar e usar para classificar
+          
+          
+          -- Para o java mais atual não é preciso fazer toda essa sobrescrita, pode se usar métodos mais simples e de alto nível
+         
+          Collections.sort(aulas, Comparator.comparing(Aula::getTempo));
+          
+          A frase aqui é semelhante a "ordene estas aulas utilizando como comparação o retorno do método getTempo de cada Aula".
+          
+          aulas.sort(Comparator.comparing(Aula::getTempo)); 
+          
+          
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+		
+
+

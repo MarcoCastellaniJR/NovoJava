@@ -1,0 +1,236 @@
+Streams - Readers - Writers - Java 
+Java IO - I de Input e O de Output
+
+
+--------------------------------------- AULA - ENTENDENDO O BACK PARA DEPOIS SIMPLIFICAR -------------------------------------------------------------
+
+- Entrada e Saida de dados sempre vão ser o foco de uma aplicação, mas não precisa ser dados recebidos de um usuários direto
+mas sim os dados de um site, que passam uma requisição e depois eles vaão para o navegador, dados que são tratados ou não tratados
+
+Arquivo                                                   Arquivo
+Rede     ==>> Aplicação                           ==>>    Redde
+Teclado       * Aplicação Web,Desktop ou mobile           Teclado
+
+File Input Stream = Temos o construtor recebendo um ( File file ) o java entende o que é o Arquivo já
+mas nesse caso se faz o teste pelo construtor de String, onde dentro dele ele explica que o String 
+pede o Caminho do arquivo.
+IO = Cheio de Exception d tipo Checked;
+
+o construtor de .read do FileInputStream
+InputStreamReader = Esse Construtor sabe ser uma String;
+
+                FileInputStream fis = new FileInputStream("lorem.txt");
+                InputStreamReader isr = new InputStreamReader(fis);
+                
+                Nesse caso usamos o FileInputStream para ler/Puxar o arqivo para dentro da aplicação
+                E logo depois pegamos o InputStreamReader , mas essa classe ainda não faz a leitura da forma correta,
+                ela faz um teste e retorna quantos caracteres ela conseguiu transformar em texto, ainda não é a classe desejada também
+                
+                BufferedReader br = new BufferedReader();
+                
+                Esse construtor foi feito para ler linha a linha;   
+                
+                
+                --------------------------------------------""--------------------------------------
+                FileInputStream fis = new FileInputStream("lorem.txt");
+                InputStreamReader isr = new InputStreamReader(fis);
+                BufferedReader br = new BufferedReader(isr);
+
+                String linha = br.readLine();
+
+                System.out.println(linha);
+
+                br.close();
+                
+                Nesse caso você cria a string da linha e imprime ela direto, depois da entrada você precisa encerrar a leitura
+                da Mesma forma que é feita a conexão de DataBase;;
+                
+                
+--------------------------------------- AULA  - ENTENDENDO AS CLASSES READER E STREAM -------------------------------------------------------------
+               Esse caso de um arquivo precisar passar primeiro pelo 
+               FileInputStream
+               InputStreamReader
+               BufferedReader
+               é PArte de um padrão de projetos , Chamado Decorator
+               Ele recebe um dado, realiza uma parte do processo e passa pra outro, cada um ''decora'' sua parte
+               
+               
+               ------
+               
+               Stream = input stream of bytes 
+               Reader = reading character streams
+               
+               
+                FileInputStream fis = new FileInputStream("lorem.txt");           Recebe e entend, é melhor para binários
+                Pode ser escrito sem o File -  InputStream fis = new FileInputStream("lorem.txt"); - Pois é sua classe mais genérica
+                InputStreamReader isr = new InputStreamReader(fis);               Recebe, Lê e escreve arquivos em String  
+                Pode ser escrito sem o InputStream - Reader isr = new InputStreamReader(fis); - pois Reader é sua classe mais genérica
+                BufferedReader br = new BufferedReader(isr);
+                
+                
+--------------------------------------- AULA  - OUTPUTSTREAM AND WRITER -------------------------------------------------------------                
+               
+                  OutputStream fos = new FileOutputStream("lorem2.txt");
+                Writer osw = new OutputStreamWriter(fos);
+                BufferedWriter bw = new BufferedWriter(osw);
+
+                bw.write("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod");
+                bw.newLine();
+                bw.newLine();
+                bw.write("asfasdfsafdas dfs sdf asf assdß");
+
+                bw.close();
+                
+                A ideia do Output e Writer é exatamente a mesma que a do input e reader, 
+                Nesse caso é criado o arquivo com as duas linhas escritas, e cada new line cria uma linha nova dentro do arquivo
+                
+--------------------------------------- AULA  - COPIANDO E ESCREVENDO UM ARQUIVO -------------------------------------------------------------                   
+                
+                
+                InputStream fis = new FileInputStream("lorem.txt"); // System.in; Para dar entrada e escrita com o que voce escreve no console
+                Reader isr = new InputStreamReader(fis);
+                BufferedReader br = new BufferedReader(isr);
+
+                OutputStream fos = new FileOutputStream("lorem2.txt"); // System.out;
+                Writer osw = new OutputStreamWriter(fos);
+                BufferedWriter bw = new BufferedWriter(osw);
+
+                String linha = br.readLine();
+
+                while(linha != null && !linha.isEmpty()) { // testa se é null ou se a linha está vazia, 
+                    bw.write(linha);                            Condicional adicionada para gerar uma pausa no console
+                    linha = br.readLine();
+                }
+
+                br.close();
+                bw.close();
+                
+                Escrita simples de leitura que também faz a escrita em outro arquivo.
+                
+                
+                Quanto mais Genérico é o recebimento, a leitura, a exportação, acaba ficando mais genérico mas pode ser que gere um erro ou então falte métodos
+                
+--------------------------------------- AULA - File Writer e PrintStream -------------------------------------------------------------   
+
+
+                 public static void main(String[] args) throws IOException {
+
+        //Fluxo de Entrada com Arquivo
+        //OutputStream fos = new FileOutputStream("lorem2.txt");
+        //Writer osw = new OutputStreamWriter(fos);
+        //Buff3eredWriter bw = new BufferedWriter(osw);
+
+        FileWriter fw = new FileWriter("lorem2.txt");
+        BufferedWriter bw = new BufferedWriter(fw);
+        fw.write("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod");
+        fw.write(System.lineSeparator());
+        fw.write(System.lineSeparator());
+        fw.write(System.lineSeparator());
+        fw.write("asfasdfsafdas dfs sdf asf assdß");
+
+        fw.close();
+        
+        
+--------------------------------------- AULA - File Writer e PrintStream -------------------------------------------------------------   
+
+
+            BufferedWriter bw = new BufferedWriter(new FileWriter("lorem2.txt"));
+            PrintStream ps = new PrintStream(new File("lorem2.txt"));
+            PrintWriter ps = new PrintWriter("lorem2.txt");        
+          Todos os métodos que estão descritos acima tem a mesma função, começando em uma ordem cronológica d cima p baixo, 
+          o Java foi se atualizando e tentando gerar essa melhora no código.
+          
+         Sempre se atentar ao método que vai usar e o que você vai pedir para ele fazer, todos os métodos acima tem mais de um construtor
+         ele pode ter um que crie um arquivo novo, um que escreva em um arquivo existente, que pede uma String com o nome do arquivo
+         entre outras formas de se utilizar.
+         
+
+
+
+--------------------------------------- AULA - Scanner --------------------------------------------------------------------------------   
+
+Scanner de arquivos - 
+                SCV - Separete Coma Values - Valores separados por virgulas
+                
+                public static void main(String[] args) throws FileNotFoundException {
+
+                Scanner scanner = new Scanner(new File("contas.csv"));
+                while(scanner.hasNextLine()) {
+                        String linha = scanner.nextLine();
+                        System.out.println(linha);
+                }
+
+                scanner.close();
+    
+                Nesse código da para notar que o Scanner é criado e ele precisa de um new File, com o arquivo que você quer usar
+                o hasNextLine é um metodo que testa se tem uma pŕoxima linha e gera o laço para fazer o print
+        
+--------------------------------------- AULA - Scanner - COMO TRATAR OS VALORES --------------------------------------------------------------------   
+
+Para a separação dos valores temos um método que se chama .split(); no qual dentro você coloca o que vai usar como separador, em CSV (",");
+
+Scanner scanner = new Scanner(new File("contas.csv"));
+                while(scanner.hasNextLine()) {
+                        String linha = scanner.nextLine();
+                        System.out.println(linha);
+
+                        Scanner linhaScanner = new Scanner(linha);
+                        linhaScanner.useLocale(Locale);
+                        linhaScanner.useDelimiter(",");
+
+                        String valor1 = linhaScanner.next();
+                        int valor2 = linhaScanner.nextInt();
+                        int valor3 = linhaScanner.nextInt();
+                        String valor4 = linhaScanner.next();
+                        double valor5 = linhaScanner.nextDouble();
+
+                        System.out.println(valor1 + valor2 + valor3 + valor4 + valor5);
+
+                        linhaScanner.close();
+                        
+                        
+                        dentro do laço de while temos o tratamento separando pela , 
+                        (",") ,  e depois o useLocale separa as regras internacionais,
+                        caso tenha alterações de local 
+                        e quando se fala do sysout, ele ja é a parte de formatação, 
+                        logo fica mais a critério do sistema
+                        
+--------------------------------------- AULA - FORMATAÇÃO DOS VALORES  --------------------------------------------------------------------   
+                        
+                        
+      public static void main(String[] args) throws Exception {
+
+                Scanner scanner = new Scanner(new File("contas.csv"));
+                while(scanner.hasNextLine()) {
+                        String linha = scanner.nextLine();
+//                        System.out.println(linha);
+
+                        Scanner linhaScanner = new Scanner(linha);
+                        linhaScanner.useLocale(Locale.US);
+                        linhaScanner.useDelimiter(",");
+
+                        String tipoConta = linhaScanner.next();
+                        int agencia = linhaScanner.nextInt();
+                        int numero = linhaScanner.nextInt();
+                        String titular = linhaScanner.next();
+                        double saldo = linhaScanner.nextDouble();
+
+                        String valorFormatado = String.format("%s - %04d-%08d, %20s: %05.2f", tipoConta, agencia, numero, titular, saldo);
+                                                System.out.println(valorFormatado);
+
+                        linhaScanner.close();
+                        
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+

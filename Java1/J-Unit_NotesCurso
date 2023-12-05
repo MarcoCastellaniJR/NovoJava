@@ -1,0 +1,64 @@
+01  ------------------------------ TESTES AUTOMATIZADOS
+- AUTOMAÇÃO NOS TESTES - AUMENTA E MUITO A VELOCIDADE E A VERACIDADE DOS TESTES
+- FEEDBACK MAIS RÁPIDO - OD CÓDIGOS AUTOMATIZADOS AJUDAM COM NOTIFICAÇÕES A ENTENDER MAIS RÁPIDOS OS PROBLEMAS
+- SEGURANÇA AO MEXER NO CÓDIGO - AO ENCONTRAR O ERRO VOCÊ CONSEGUE ANALISAR E ENTENDER MELHOR O CÓDIGO E SE SENTE MAIS CONFIANTE
+        PARA ALTERAR O CÓDIGO QUE AS VEZES PODEMM SER SEU E AS VEZES NÃO
+- FAVORECE A MELHORIA AO CÓDIGO - FAZENDO OS TESTES VOCÊ PODE PERCEBER FORMAS DE MELHORAR E EXTRAIR CLASSES OU ATRIBUTOS, VOCÊ CONSEGUE
+        ENTENDER MELHOR COMO VAI SER A ESTRUTURAÇÃO DESSE CÓDIGO
+        
+02 ---------------------------- J UNIT
+ - Se é de convenção como nome das classes 
+      -- Projeto a ser testado        "Calculadora"
+      -- Nome da Classe de TEste      "CalculadoraTeste"
+ - Para implementar o Junit basta apenas colocar o @Test no começo da classe
+        Como é uma biblioteca padrão as IDE já percebem que é do Junit e te dão a opção de importar ela diretamente pro projeto
+ - Para rodar basta apenas clicar com o botão direito "Run as Junit Teste"
+          ----- TESTE DE CALCULADORA
+                        @Test
+                        public void deveriaSomarDoisNumerosPositivos() {
+                        Calculadora calc = new Calculadora(); instanciando a classe
+                        int soma = calc.somar(3, 7); utilizando o método com os valores 3 e 7
+
+                        Assert.assertEquals(10, soma);  // nesse assert.equals faz o teste para ver se o valor que tinha que ser retornado (10) foi validado
+                        
+03 ------------------------------  PRIMEIRO TESTE
+- como quando você vai criar um anova classe, ir em Other e pesquisar por Junit que ja vai ser criado um arquivo próprio, como se fosse uma classe
+
+class BonusServiceTest {
+
+	    @Test
+	    void bonusDeveriaSerDezPorCentoParaSalarioDeExatamente10000() {
+	        bonusService service = new BonusService();
+	        BigDecimal bonus = service.calcularBonus (new Funcionario("Rodrigo", LocalDate.now(), new BigDecimal("10000")));
+
+	        assertEquals(new BigDecimal("1000.00", bonus);
+	    }
+      
+---- Foi usado um projeto já criado onde dava uma bonificação de 10% do salário do funcionário
+            Mas caso a bonificação fosse maior de 1000.0 Reais o funcionário não receberia pelo fato de o salário ja ser muito alto.
+---- Testes que foram criados além do teste de exatos 1000.0 Reais, Abaixo de 1000.0 Reais e Acima de 1000.0 Reais onde o valor retornado é zero.
+                                          
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      

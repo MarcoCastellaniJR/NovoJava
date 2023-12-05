@@ -1,0 +1,68 @@
+
+------------------------------------  Peças com recortes no construtor de armários - Como Colunas --------------------------------------------------------------
+
+ - A peça (Base) tem inicialmente tem dois atributos de recorte A e B , onde cada um decide qual será a profundidade do recorte
+ - Dentro dessa mesma peça na aba Redimensionamento ela tem a aba Redimensionamento Personalizado ativa
+        -- Como reestruturar a peça para ser responsiva
+                  ---- A peça é criada com o desenho com o recorte da forma que ela seria a inserção, da forma correta sem pensar na responsividade
+                  ---- Após essa configuração abrir a aba do redimensionamento personalizado e selecionar " CRIAR ÁREA RETANGULAR "
+                  ---- Essa aba precisa de algumas informações específicas 
+                        --- O valor original seria como ela seria inserida no ambiente (200)
+                        --- A formulá vai ser qual atributo ela vai puxar diretamente para esse redimensionamento, Por exemplo essa formula usa o atributo #A#
+                         onde esse A indica o mesmo valor do valor original (200) mas quando alterano no atributo ele fica diretamente responsivo
+                  ---- A aba Direção, onde tem X e Y aceita os valores -1/0/1 , onde cada valor indica a direção para onde a linha que foi selecionada será redimensionada
+                  ---- * Selecionar por completo a linha que a aba retangular irá atualizar o redimensionamento.
+        --- Caso o atribut seja colocado como visível e editável corretamente e possa ser editado no ambiente, essa peça ja pode ser usada para composição
+
+
+---- Quando a peça tem composição dentro do construtor de armários e é utilizado para gerar um recorte para alguma coluna tem mais passos a serem realizados 
+          para a peça ficar completamente responsiva, e ter onde fazer a alteração
+          
+---- A peça primeiramente deve ser adicionada como um componente dentro do construtor como qualquer outra peça 
+      ---- usando de exemplo, uma Base que tem um recorte para coluna, de profudidade #A# e largura #B# da coluna
+---- Após adicionar a peça dentro do construtor você deve entrar na aba #Variáveis#
+        --- Essa aba é a aba que permite quando você abrir o construtor, você alterar a profundidade e largura da coluna logo na aba de "Estrutura" que é aberta
+        --- Nessa aba Variáveis você precisará colocar ID como o ID do atributo mesmo, para todo o resto da estrutura poder puxar diretamente dele
+        --- A Descrição deve ser preenchida normalmente
+        --- O valor você coloca o valor Inicial que deseja configurar e mantenha a aba Editável selecionada, para poder alterar o valor
+---- Após essa configuração vá na peça que receberá essa alteração de estrutura e utilizea para trocar as medidas, 
+          ---- Quando for uma peça que ''inteira'' como por exemplo alguma largura ou altura de divisão, você pode colocar essa variáve diretamente
+                     em alguma das medidas, como por exemlo, em um atributo, "altura do separador", o separador poderia ter a sua Largura como (#altura do separador#)
+                     por não precisar realizar nenhum tipo de alteração acima desse valor
+          ---- Em casos de recorte de coluna, essas peças que usam atributos #A# e #B# para sua configuração você seleciona a base e vai no canto inferior direito
+                       na aba "Opções Avançadas", onde essa aba abre diretamente os atributos da base em si, e lá você encontrará os atributos configurados fora do
+                       próprio construtor
+          ---- Abrindo essa Aba você vai encontrar o atributo #A# onde é alterada as medidas do recorte, para deixar ele responsivo junto com atributo do construtor
+                      o atriuto A deve ter o valor = @(#largura_da_coluna# + #Qualquer_coisa_que_precisa_ser_descontada#)
+-------- Depois de toda essaa configuração você deverá ter um módulo responsivo da forma correta  
+
+
+
+------------------------------------------------- Posição e Largura de afastadores e gaveteiros no construtor de armário  ------------------------------------
+
+--- Abra a aba de Itens normalmente do construtor como se fosse alterar algum item, abra o gaveteiro que deseja alterar e vá na aba Gavetas
+      --- Precisamos adicionar corretamente os afastadores na aba inferior 
+      --- Adicione os itens que deseja incluir e na aba tradução que tem logo a frente do item adicionado, é o que será colocado 
+                 na frente da box que você precisa selecionar,  "Afastador Direito" ou "Engrosso Direito", o valor do que será a estrutura
+      --- Você adiciona nessa aba e agora vamos alterar dentro da aba componente que esta logo acima, 
+      --- Essa aba será onde vai ser editado todo o posicionamento e medidas
+      --- O segredo não está em como editar, por isso ser simples, e sim a fórmula que será utilizada
+      ---  (((    $P.W$-[gaveta_afas_esq_ss.D]-[gaveta_afas_dir_ss.D] - [gaveta_eng_esq_teste_ss.H] - [gaveta_eng_dir_teste_ss.H] )))
+      --- Essa aba é a unica onde eu vi esse tipo de fórmula, onde pegamos o $PW$ e ele faz a conta corretamente caso o item esteja ativo
+      --- [id_da_estrutura.D] -  Esse ultimo D seria o D/W/H comum, mas não usa nenhum tipo de $D$/$W$/$H$
+      --- Esse ID é o que está nomeado os afastadores na parte inferior
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
